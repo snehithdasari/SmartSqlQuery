@@ -155,19 +155,19 @@ Tests for: unknown profile; SQLite healthcheck; inspector FK graph on all three 
 
 | Task num | Plan dependency | Status | Files involved |
 |---|---|---|---|
-| T-1.01 | — | Done | `pyproject.toml` or `requirements.txt`, `.gitignore`, `.venv/` (local only — gitignored), `smartsql/__init__.py`, `smartsql/db/__init__.py`, `tests/__init__.py` |
-| T-1.02 | T-1.01 | Done | `smartsql/db/profiles.py`, `smartsql/db/connection.py`, `.env.example` (SQLite paths only) |
-| T-1.03 | T-1.02 | Done | `smartsql/db/execute.py`, `tests/db/test_execute.py` |
-| T-1.04 | T-1.02 | Done | `smartsql/db/inspector.py`, `smartsql/db/models.py`, `tests/db/test_inspector.py` |
-| T-1.05 | T-1.04 | Done | `smartsql/db/comments.py`, `data/schema_comments/university.yaml`, `data/schema_comments/ecommerce.yaml`, `data/schema_comments/hr.yaml`, `tests/db/test_comments.py` |
-| T-1.06 | T-1.04 | Done | `smartsql/db/sampler.py`, `tests/db/test_sampler.py` |
-| T-1.07 | T-1.04, T-1.05, T-1.06 | Done | `smartsql/db/serialize.py`, `smartsql/db/hashing.py`, `tests/db/test_serialize.py` |
-| T-1.08 | T-1.02 | Done | `data/seeds/university.sql`, `data/university.db`, `scripts/seed_all.py` |
-| T-1.09 | T-1.02 | Done | `data/seeds/ecommerce.sql`, `data/ecommerce.db` |
-| T-1.10 | T-1.02 | Done | `data/seeds/hr_analytics.sql`, `data/hr_analytics.db` |
-| T-1.11 | T-1.01 | Done | `smartsql/eval/gold.py`, `data/gold/schema.md` (optional), `tests/eval/test_gold_loader.py` |
-| T-1.12 | T-1.08, T-1.09, T-1.10, T-1.11, T-1.03 | Done | `data/gold/university.yaml`, `data/gold/ecommerce.yaml`, `data/gold/hr.yaml` |
-| T-1.13 | T-1.03 … T-1.12 | Done | `tests/db/`, `tests/eval/test_gold_executes.py`, `pytest.ini` |
+| T-1.01 | — | Not started | `pyproject.toml` or `requirements.txt`, `.gitignore`, `.venv/` (local only — gitignored), `smartsql/__init__.py`, `smartsql/db/__init__.py`, `tests/__init__.py` |
+| T-1.02 | T-1.01 | Not started | `smartsql/db/profiles.py`, `smartsql/db/connection.py`, `.env.example` (SQLite paths only) |
+| T-1.03 | T-1.02 | Not started | `smartsql/db/execute.py`, `tests/db/test_execute.py` |
+| T-1.04 | T-1.02 | Not started | `smartsql/db/inspector.py`, `smartsql/db/models.py`, `tests/db/test_inspector.py` |
+| T-1.05 | T-1.04 | Not started | `smartsql/db/comments.py`, `data/schema_comments/university.yaml`, `data/schema_comments/ecommerce.yaml`, `data/schema_comments/hr.yaml`, `tests/db/test_comments.py` |
+| T-1.06 | T-1.04 | Not started | `smartsql/db/sampler.py`, `tests/db/test_sampler.py` |
+| T-1.07 | T-1.04, T-1.05, T-1.06 | Not started | `smartsql/db/serialize.py`, `smartsql/db/hashing.py`, `tests/db/test_serialize.py` |
+| T-1.08 | T-1.02 | Not started | `data/seeds/university.sql`, `data/university.db`, `scripts/seed_university.py` (optional) |
+| T-1.09 | T-1.02 | Not started | `data/seeds/ecommerce.sql`, `data/ecommerce.db` |
+| T-1.10 | T-1.02 | Not started | `data/seeds/hr_analytics.sql`, `data/hr_analytics.db` |
+| T-1.11 | T-1.01 | Not started | `smartsql/eval/gold.py`, `data/gold/schema.md` (optional), `tests/eval/test_gold_loader.py` |
+| T-1.12 | T-1.08, T-1.09, T-1.10, T-1.11, T-1.03 | Not started | `data/gold/university.yaml`, `data/gold/ecommerce.yaml`, `data/gold/hr.yaml` |
+| T-1.13 | T-1.03 … T-1.12 | Not started | `tests/db/`, `tests/eval/test_gold_executes.py`, `pytest.ini` |
 
 **Phase 1 complete when:** T-1.13 is Done and PHASEDOWN §1.4 exit criteria hold.
 
@@ -621,19 +621,19 @@ Same rows as above, condensed for scanning. Update **Status** here or in the pha
 
 | Task num | Phase | Plan dependency | Status | Files involved (primary) |
 |---|---|---|---|---|
-| T-1.01 | 1 | — | Done | `requirements.txt`, `smartsql/`, `.venv/` (local) |
-| T-1.02 | 1 | T-1.01 | Done | `smartsql/db/connection.py`, `profiles.py` |
-| T-1.03 | 1 | T-1.02 | Done | `smartsql/db/execute.py` |
-| T-1.04 | 1 | T-1.02 | Done | `smartsql/db/inspector.py` |
-| T-1.05 | 1 | T-1.04 | Done | `smartsql/db/comments.py`, `data/schema_comments/` |
-| T-1.06 | 1 | T-1.04 | Done | `smartsql/db/sampler.py` |
-| T-1.07 | 1 | T-1.04–T-1.06 | Done | `smartsql/db/serialize.py`, `hashing.py` |
-| T-1.08 | 1 | T-1.02 | Done | `data/university.db`, `data/seeds/university.sql` |
-| T-1.09 | 1 | T-1.02 | Done | `data/ecommerce.db`, `data/seeds/ecommerce.sql` |
-| T-1.10 | 1 | T-1.02 | Done | `data/hr_analytics.db`, `data/seeds/hr_analytics.sql` |
-| T-1.11 | 1 | T-1.01 | Done | `smartsql/eval/gold.py` |
-| T-1.12 | 1 | T-1.08–T-1.11, T-1.03 | Done | `data/gold/*.yaml` |
-| T-1.13 | 1 | T-1.03–T-1.12 | Done | `tests/db/`, `tests/eval/` |
+| T-1.01 | 1 | — | Not started | `requirements.txt`, `smartsql/`, `.venv/` (local) |
+| T-1.02 | 1 | T-1.01 | Not started | `smartsql/db/connection.py`, `profiles.py` |
+| T-1.03 | 1 | T-1.02 | Not started | `smartsql/db/execute.py` |
+| T-1.04 | 1 | T-1.02 | Not started | `smartsql/db/inspector.py` |
+| T-1.05 | 1 | T-1.04 | Not started | `smartsql/db/comments.py`, `data/schema_comments/` |
+| T-1.06 | 1 | T-1.04 | Not started | `smartsql/db/sampler.py` |
+| T-1.07 | 1 | T-1.04–T-1.06 | Not started | `smartsql/db/serialize.py`, `hashing.py` |
+| T-1.08 | 1 | T-1.02 | Not started | `data/university.db`, `data/seeds/university.sql` |
+| T-1.09 | 1 | T-1.02 | Not started | `data/ecommerce.db`, `data/seeds/ecommerce.sql` |
+| T-1.10 | 1 | T-1.02 | Not started | `data/hr_analytics.db`, `data/seeds/hr_analytics.sql` |
+| T-1.11 | 1 | T-1.01 | Not started | `smartsql/eval/gold.py` |
+| T-1.12 | 1 | T-1.08–T-1.11, T-1.03 | Not started | `data/gold/*.yaml` |
+| T-1.13 | 1 | T-1.03–T-1.12 | Not started | `tests/db/`, `tests/eval/` |
 | T-2.01 | 2 | T-1.01 | Not started | `smartsql/safety/errors.py` |
 | T-2.02 | 2 | T-2.01 | Not started | `smartsql/safety/prefilter.py` |
 | T-2.03 | 2 | T-2.01 | Not started | `smartsql/safety/parse.py` |
