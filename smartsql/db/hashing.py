@@ -14,6 +14,7 @@ Usage
 """
 from __future__ import annotations
 
+import copy
 import hashlib
 
 from smartsql.db.models import SchemaSnapshot
@@ -27,17 +28,16 @@ def compute_hash(snapshot: SchemaSnapshot) -> SchemaSnapshot:
     :func:`smartsql.db.serialize.to_json`, which excludes the
     ``schema_hash`` field (no circularity).
 
-    The input *snapshot* is **not** modified; a new one is returned
-    (because :class:`SchemaSnapshot` is a regular dataclass, not frozen,
-    we just update the field in-place after copy — but returning it
-    makes the intent clear).
+    The input *snapshot* is **not** modified; a new snapshot with
+    ``schema_hash`` filled in is returned (deep-copied).
 
     Returns
     -------
     SchemaSnapshot
-        Same object with ``schema_hash`` filled in.
+        New snapshot with ``schema_hash`` filled in.
     """
-    canonical = to_json(snapshot)
+    updated = copy.deepcopy(snapshot)
+    canonical = to_json(updated)
     digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
-    snapshot.schema_hash = digest
-    return snapshot
+    updated.schema_hash = digest
+    return updated

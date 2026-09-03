@@ -65,6 +65,7 @@ def execute_select(
             result = conn.execute(text(sql), params)
             # Fetch one extra row to detect truncation without reading everything
             rows = result.fetchmany(max_rows + 1)
+            columns = list(result.keys()) if result.returns_rows else []
     except Exception as exc:
         raise ExecuteError(f"Query failed: {exc}\nSQL: {sql}") from exc
 
@@ -75,10 +76,8 @@ def execute_select(
         rows = rows[:max_rows]
 
     if rows:
-        columns = list(result.keys())
         df = pd.DataFrame(rows, columns=columns)
     else:
-        columns = list(result.keys()) if result.returns_rows else []
         df = pd.DataFrame(columns=columns)
 
     metadata: dict[str, Any] = {

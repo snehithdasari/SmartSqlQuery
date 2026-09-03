@@ -46,6 +46,11 @@ def _is_sampleable(sql_type: str) -> bool:
     return False
 
 
+def _quote_id(name: str) -> str:
+    """Double-quote a SQL identifier (safe for SQLite, MySQL ANSI mode, Postgres)."""
+    return '"' + name.replace('"', '""') + '"'
+
+
 def sample_values(
     engine: Engine,
     snapshot: SchemaSnapshot,
@@ -75,22 +80,23 @@ def sample_values(
                 if not _is_sampleable(col.sql_type):
                     continue
                 # Check cardinality first (cheap COUNT DISTINCT)
+                # Double-quote identifiers to prevent SQL syntax errors / injection on reserved words or special chars
                 count_sql = text(
-                    f"SELECT COUNT(DISTINCT {col.name}) FROM {table.name}"  # noqa: S608
+                    f"SELECT COUNT(DISTINCT {_quote_id(col.name)}) FROM {_quote_id(table.name)}"  # noqa: S608
                 )
                 try:
                     count_row = conn.execute(count_sql).fetchone()
                     distinct_count = count_row[0] if count_row else 0
                 except Exception:
-                    continue  # Skip columns that fail (e.g. reserved names)
+                    continue  # Skip columns that fail (e.g. invalid types or table access)
 
                 if distinct_count == 0 or distinct_count > threshold:
                     continue
 
                 # Fetch sample values
                 sample_sql = text(
-                    f"SELECT DISTINCT {col.name} FROM {table.name} "  # noqa: S608
-                    f"WHERE {col.name} IS NOT NULL LIMIT {_MAX_SAMPLE_VALUES}"
+                    f"SELECT DISTINCT {_quote_id(col.name)} FROM {_quote_id(table.name)} "  # noqa: S608
+                    f"WHERE {_quote_id(col.name)} IS NOT NULL LIMIT {_MAX_SAMPLE_VALUES}"
                 )
                 try:
                     rows = conn.execute(sample_sql).fetchall()

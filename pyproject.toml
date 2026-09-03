@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "smartsqlquery"
@@ -28,5 +28,5 @@ markers = [
     "slow: long eval / live generation runs",
     "security: adversarial SQL fixture pack",
 ]
-addopts = "-q --strict-markers"
+addopts = "-q --strict-markers -m \"not mysql and not llm and not ollama and not slow\""
 filterwarnings = ["ignore::DeprecationWarning"]
