@@ -21,8 +21,10 @@ from typing import Optional
 
 import yaml
 
-_REPO_ROOT = Path(__file__).resolve().parents[2]
-_GOLD_DIR = _REPO_ROOT / "data" / "gold"
+from smartsql.paths import GOLD_DIR, REPO_ROOT
+
+_REPO_ROOT = REPO_ROOT
+_GOLD_DIR = GOLD_DIR
 
 _REQUIRED_KEYS = {"id", "question", "gold_sql", "required_tables", "tags"}
 

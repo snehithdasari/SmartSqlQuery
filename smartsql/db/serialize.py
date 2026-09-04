@@ -35,7 +35,7 @@ def _snapshot_to_dict(snapshot: SchemaSnapshot) -> dict:
             {
                 "name": t.name,
                 "comment": t.comment,
-                "primary_key": {"columns": sorted(t.primary_key.columns)},
+                "primary_key": {"columns": list(t.primary_key.columns)},
                 "columns": [
                     {
                         "name": c.name,

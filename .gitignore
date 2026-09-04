@@ -33,7 +33,9 @@ Thumbs.db
 .vscode/
 *.swp
 
-# SQLite junk (seeded *.db may be committed; journals must not)
+# SQLite database files and journals
+data/*.db
+*.db
 *.db-journal
 *.db-wal
 *.db-shm

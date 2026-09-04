@@ -11,9 +11,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal
 
-# Repository root — two levels up from this file (smartsql/db/profiles.py)
-_REPO_ROOT = Path(__file__).resolve().parents[2]
-_DATA_DIR = _REPO_ROOT / "data"
+from smartsql.paths import DATA_DIR, REPO_ROOT
+
+_REPO_ROOT = REPO_ROOT
+_DATA_DIR = DATA_DIR
 
 
 class ProfileNotFoundError(KeyError):
@@ -72,6 +73,12 @@ _REGISTRY: dict[str, DatabaseProfile] = {
         url=_sqlite_url("ecommerce.db", "SMARTSQL_ECOMMERCE_PATH"),
     ),
     "hr_analytics": DatabaseProfile(
+        profile_id="hr_analytics",
+        dialect="sqlite",
+        url=_sqlite_url("hr_analytics.db", "SMARTSQL_HR_PATH"),
+    ),
+    # Alias "hr" for "hr_analytics" for backwards compatibility and brevity
+    "hr": DatabaseProfile(
         profile_id="hr_analytics",
         dialect="sqlite",
         url=_sqlite_url("hr_analytics.db", "SMARTSQL_HR_PATH"),

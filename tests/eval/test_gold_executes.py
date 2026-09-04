@@ -14,7 +14,7 @@ from pathlib import Path
 import pytest
 from sqlalchemy import create_engine
 
-from smartsql.db.execute import execute_select, ExecuteError
+from smartsql.db.execute import execute_select
 from smartsql.eval.gold import load_gold, GoldLoadError
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -25,7 +25,7 @@ _GOLD_DIR = _DATA_DIR / "gold"
 _PROFILES = {
     "university": _DATA_DIR / "university.db",
     "ecommerce":  _DATA_DIR / "ecommerce.db",
-    "hr":         _DATA_DIR / "hr_analytics.db",
+    "hr_analytics": _DATA_DIR / "hr_analytics.db",
 }
 
 

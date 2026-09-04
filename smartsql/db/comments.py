@@ -26,10 +26,10 @@ from typing import Any
 import yaml
 
 from smartsql.db.models import SchemaSnapshot
+from smartsql.paths import COMMENTS_DIR, REPO_ROOT
 
-# data/schema_comments/ relative to repo root
-_REPO_ROOT = Path(__file__).resolve().parents[2]
-_COMMENTS_DIR = _REPO_ROOT / "data" / "schema_comments"
+_REPO_ROOT = REPO_ROOT
+_COMMENTS_DIR = COMMENTS_DIR
 _TABLE_COMMENT_KEY = "_comment"
 
 
