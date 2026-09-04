@@ -56,3 +56,6 @@ data/eval/*.local.json
 # Logs
 *.log
 logs/
+
+# Review / local sessions
+sessions/
