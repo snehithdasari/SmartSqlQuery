@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smartsqlquery"
+version = "0.1.0"
+description = "SmartSQLQuery — Natural-language-to-SQL engine with schema awareness, AST safety, and self-correction"
+requires-python = ">=3.11"
+readme = "README.md"
+dependencies = [
+    "SQLAlchemy>=2.0,<3.0",
+    "pandas>=2.1,<3.0",
+    "PyYAML>=6.0,<7.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["smartsql*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "mysql: needs MySQL server (MYSQL_DSN env var)",
+    "llm: needs cloud LLM API key",
+    "ollama: needs local Ollama daemon",
+    "slow: long eval / live generation runs",
+    "security: adversarial SQL fixture pack",
+]
+addopts = "-q --strict-markers -m \"not mysql and not llm and not ollama and not slow\""
+filterwarnings = ["ignore::DeprecationWarning"]
